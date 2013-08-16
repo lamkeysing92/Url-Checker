@@ -1,0 +1,1 @@
+wfuzz was throwing errors for me, so I thought I'd do what any sane programmer would do, make my own version from scratch!
