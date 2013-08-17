@@ -1,5 +1,11 @@
 wfuzz was throwing errors for me, so I thought I'd do what any sane programmer would do, make my own version from scratch!
 
+This program makes use of the wonderful requests library
+
+    pip install requests
+
+How to use:
+
     Usage: main.py <file> <url>
 
     This program brute forces a url pattern, with words from a provided 
