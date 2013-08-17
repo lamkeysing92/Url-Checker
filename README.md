@@ -1,8 +1,9 @@
 wfuzz was throwing errors for me, so I thought I'd do what any sane programmer would do, make my own version from scratch!
 
-This program makes use of the wonderful requests library
+This program makes use of the wonderful requests and docopt libraries
 
     pip install requests
+    pip install docopt
 
 How to use:
 
