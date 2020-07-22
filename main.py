@@ -51,7 +51,10 @@ def main(file, url, asyncronous):
         rs = (grequests.get(u) for u in urls)
         responses = grequests.map(rs)
         for response in responses:
-            if response.status_code != 404 and response.status_code != 403:
+            if response is not None \
+                    and response.status_code is not None \
+                    and response.status_code != 404 \
+                    and response.status_code != 403:
                 print(response.url)
                 print(response.status_code)
                 print()
