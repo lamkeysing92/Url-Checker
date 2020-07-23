@@ -21,10 +21,11 @@
 
 """
 
+import time
+
+import grequests
 import requests
 from docopt import docopt
-import time
-import grequests
 
 
 def file_len(fname):
@@ -34,38 +35,40 @@ def file_len(fname):
     return i + 1
 
 
-def main(file, url, async):
+def main(file, url, asyncronous):
     f = open(file, 'r')
     num_lines = file_len(file)
     start_time = time.time()
 
-    print "Checking {} different urls, this may take a while.\n".format(num_lines)
+    print("Checking {} different urls, this may take a while.\n".format(num_lines))
 
     urls = []
     for line in f:
         line = line.rstrip('\n')
         formated_url = url.format(line)
         urls.append(formated_url)
-    if async:
+    if asyncronous:
         rs = (grequests.get(u) for u in urls)
         responses = grequests.map(rs)
         for response in responses:
-            if response.status_code != 404:
-                print response.url
-                print response.status_code
-                print
+            if response is not None \
+                    and response.status_code is not None \
+                    and response.status_code != 404 \
+                    and response.status_code != 403:
+                print(response.url)
+                print(response.status_code)
+                print()
     else:
         for url in urls:
-            r = requests.get(formated_url, verify=False)
-            if r.status_code != 404:
-                print r.url
-                print r.status_code
-                print
+            r = requests.get(url, verify=False)
+            if r.status_code != 404 and r.status_code != 403:
+                print(r.url)
+                print(r.status_code)
+                print()
 
-    print "Checked {} different urls in {} seconds\n".format(num_lines, time.time() - start_time)
+    print("Checked {} different urls in {} seconds\n".format(num_lines, time.time() - start_time))
 
 
 if __name__ == '__main__':
-    arguments = docopt(__doc__, version="0.2")
+    arguments = docopt(__doc__, version="0.3")
     main(arguments['<file>'], arguments['<url>'], arguments['--async'])
-

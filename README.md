@@ -1,4 +1,5 @@
-wfuzz was throwing errors for me, so I thought I'd do what any sane programmer would do, make my own version from scratch!
+Just uploading a newer version of the older fork that doesn't work in Python3.
+I changed the code to be a lil bit more performing than the older version.
 
 This program makes use of the wonderful requests and docopt libraries.
 Install dependencies with either
